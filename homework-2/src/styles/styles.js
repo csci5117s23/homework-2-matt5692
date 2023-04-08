@@ -1,18 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
+const palepink = "#F5D9E2";
+const pink = "#E3ABB5";
+
 export const navbar = css`
     line-height: 1.7em;
-    background-color: #E3ABB5;
+    background-color: ${pink};
 
     a {
         color: #008393;
     }
 
     a:hover{
-        background-color: #F5D9E2;
+        background-color: ${palepink};
     }
 `
+
 export const header = css`
     text-align: center;
     width: 80%;
@@ -21,8 +25,8 @@ export const header = css`
     top: 20px; left: 0; bottom: 0; right: 0;
     margin: auto;
 
-    & h1{
-        font-size: 3em;
+    h1{
+        font-size: 5em;
         font-weight: bold;
         padding: 1em 1.6em;
         font-weight: 100;
@@ -30,3 +34,23 @@ export const header = css`
         line-height: 1em;
     }
     `
+
+export const todoItem = css`
+    text-align: center;
+    border-style: solid;
+    font-size: 1.5em;
+    background-color: ${palepink};
+`
+
+export const customButton = css `
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+`
+
+export const li = css`
+    list-style-type: none;
+    margin-bottom: 10px;
+    margin-top: 10px;
+`
