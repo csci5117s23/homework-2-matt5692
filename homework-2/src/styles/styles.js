@@ -3,13 +3,14 @@ import { css } from '@emotion/react';
 
 const palepink = "#F5D9E2";
 const pink = "#E3ABB5";
+const darkblue = "#008393";
 
 export const navbar = css`
     line-height: 1.7em;
     background-color: ${pink};
 
     a {
-        color: #008393;
+        color: ${darkblue};
     }
 
     a:hover{
@@ -37,6 +38,7 @@ export const header = css`
 
 export const todoItem = css`
     text-align: center;
+    border-radius: 8px;
     border-style: solid;
     font-size: 1.5em;
     background-color: ${palepink};
@@ -47,6 +49,7 @@ export const customButton = css `
     margin-right: 10px;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background-color: ${darkblue};
 `
 
 export const li = css`
