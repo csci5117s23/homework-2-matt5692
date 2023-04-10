@@ -6,10 +6,6 @@
 import {app} from 'codehooks-js'
 import {crudlify} from 'codehooks-crudlify'
 
-//test route
-app.get("/test", (req, res) => {
-    res.json({"message": "you did it!"});
-});
 
 // Use Crudlify to create a REST API for any collection
 crudlify(app)
