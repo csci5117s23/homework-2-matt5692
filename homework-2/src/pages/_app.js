@@ -2,9 +2,12 @@
 import 'purecss/build/pure.css'
 import { navbar } from '@/styles/styles'
 import Link from 'next/link';
+import { ClerkProvider } from '@clerk/nextjs';
+
 
 export default function App({ Component, pageProps }) {
   return(<>
+  <ClerkProvider {...pageProps} >
   <div className="home-menu pure-menu pure-menu-horizontal" css={navbar}>
       <Link href="/todo" className="pure-menu-heading pure-menu-link">Home</Link>
       <ul className="pure-menu-list">
@@ -17,5 +20,6 @@ export default function App({ Component, pageProps }) {
       </ul>
   </div>
   <Component {...pageProps} />
+  </ClerkProvider>
   </>); 
 }
