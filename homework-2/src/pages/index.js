@@ -2,6 +2,7 @@
 import { header } from "@/styles/styles";
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
+import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -18,6 +19,14 @@ export default function Home() {
       <div className="pure-g">
             <div className="pure-u-1" css={header}>
                 <h1>Welcome!</h1>
+                <SignedIn>
+                {/* Mount the UserButton component */}
+                  <UserButton />
+                </SignedIn>
+                <SignedOut>
+                {/* Signed out users get sign in button */}
+                  <SignInButton className="pure-button-primary" redirectUrl="/todo"/>
+                </SignedOut>
             </div>
         </div>
     </>
