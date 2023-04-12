@@ -5,6 +5,7 @@ import { customButton } from "@/styles/styles";
 import { li } from "@/styles/styles";
 import { updateDone } from "@/modules/Data";
 import { useAuth } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function TodoItem({todo}){
     const [done, setDone] = useState(todo.done);
@@ -19,10 +20,11 @@ export default function TodoItem({todo}){
 
     }
 
+    let url = '/todo/' + todo._id;
     if(!done){
         return(<>
             <div css={todoItem}>
-                <span>{todo.content}</span>
+                <Link href={url}>{todo.content}</Link>
                 <button className="pure-button-primary" onClick={changeDone} css={customButton}>Done</button>
             </div>
         </>);
@@ -30,7 +32,7 @@ export default function TodoItem({todo}){
     else{
         return(<>
             <div css={todoItem}>
-                <span>{todo.content} this is done</span>
+                <Link href={url}>{todo.content} this is done</Link>
                 <button className="pure-button-primary" onClick={changeDone} css={customButton}>Done</button>
             </div>
         </>);

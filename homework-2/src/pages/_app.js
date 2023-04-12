@@ -9,13 +9,13 @@ export default function App({ Component, pageProps }) {
   return(<>
   <ClerkProvider {...pageProps} >
   <div className="home-menu pure-menu pure-menu-horizontal" css={navbar}>
-      <Link href="/todo" className="pure-menu-heading pure-menu-link">Home</Link>
+      <Link href="/todo" className="pure-menu-heading pure-menu-link">Todo</Link>
       <ul className="pure-menu-list">
             <li className="pure-menu-item">
-                <Link href="/todo" className="pure-menu-link">Todo</Link>
+                <Link href="/done" className="pure-menu-link">Done</Link>
             </li>
             <li className="pure-menu-item">
-                <Link href="/" className="pure-menu-link">Done</Link>
+                <Link href="/" className="pure-menu-link">home</Link>
             </li>
       </ul>
   </div>
