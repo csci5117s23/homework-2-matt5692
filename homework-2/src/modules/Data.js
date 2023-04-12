@@ -19,3 +19,13 @@ export async function addTodo(authToken, todo) {
     })
     return await result.json();
 }
+
+export async function updateDone(authToken, todo) {
+    const result = await fetch(base_url+"/todo/"+todo._id,{
+        'method':'PUT',
+        'headers': {'Authorization': 'Bearer ' + authToken,
+        'Content-Type': 'application/json'},
+        'body': JSON.stringify(todo)
+    })
+    return await result.json();
+}

@@ -2,16 +2,13 @@
 import { header } from "@/styles/styles";
 import { useState, useEffect } from "react";
 import { TodoList } from "@/components/todo";
-import { TodoBuilder } from "@/components/todo";
 import Head from 'next/head'
 import { useAuth } from "@clerk/nextjs";
-import { getTodo, addTodo } from "@/modules/Data";
-import { todoItem, customButton } from "@/styles/styles";
+import { getTodo } from "@/modules/Data";
 
-export default function Todo(){
+export default function Done(){
     const [todoItemList, setTodoItemList] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [newItemContent, setNewItemContent] = useState("");
     const { isLoaded, userId, sessionId, getToken } = useAuth();
 
     useEffect(() => {
@@ -19,19 +16,13 @@ export default function Todo(){
           if (userId) {
             const token = await getToken({ template: "codehooks" });
             const todoList = await getTodo(token);
-            setTodoItemList(todoList.filter(todoItem => !todoItem.done));
+            setTodoItemList(todoList.filter(todoItem => todoItem.done));
             setLoading(false);
           }
         }
         process();
       }, [isLoaded]);
 
-    async function add() {
-        const token = await getToken({ template: "codehooks" });
-        const newTodo = await addTodo(token, newItemContent);
-        setNewItemContent("");
-        setTodoItemList(todoItemList.concat(newTodo));
-    }
 
     if(loading){
         return(<><span>LOADING</span></>);
@@ -46,12 +37,8 @@ export default function Todo(){
           </Head>
           <div className="pure-g">
                 <div className="pure-u-1" css={header}>
-                    <h2>Your todo list</h2>
+                    <h2>Your done items</h2>
                     <TodoList todoItems={todoItemList}></TodoList>
-                    <div css={todoItem}>
-                        <input name="content" id="contentInput" value={newItemContent} onChange={(e) => setNewItemContent(e.target.value)}></input>
-                        <button onClick={add} className="pure-button-primary" css={customButton}>Add</button>
-                    </div>
                 </div>
             </div>
         </>

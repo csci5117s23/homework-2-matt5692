@@ -3,23 +3,35 @@ import { useState } from "react";
 import { todoItem } from "@/styles/styles";
 import { customButton } from "@/styles/styles";
 import { li } from "@/styles/styles";
+import { updateDone } from "@/modules/Data";
+import { useAuth } from "@clerk/nextjs";
 
-export default function TodoItem({content}){
-    const [done, setDone] = useState(false);
+export default function TodoItem({todo}){
+    const [done, setDone] = useState(todo.done);
+    const { isLoaded, userId, sessionId, getToken } = useAuth();
+
+    async function changeDone(){
+        const token = await getToken({ template: "codehooks" });
+        todo.done = !todo.done;
+        console.log(todo.done);
+        const updatedTodo = await updateDone(token, todo);
+        setDone(!done);
+
+    }
 
     if(!done){
         return(<>
             <div css={todoItem}>
-                <span>{content}</span>
-                <button className="pure-button-primary" onClick={() => setDone(!done)} css={customButton}>Done</button>
+                <span>{todo.content}</span>
+                <button className="pure-button-primary" onClick={changeDone} css={customButton}>Done</button>
             </div>
         </>);
     }
     else{
         return(<>
             <div css={todoItem}>
-                <span>{content} this is done</span>
-                <button className="pure-button-primary" onClick={() => setDone(!done)} css={customButton}>Done</button>
+                <span>{todo.content} this is done</span>
+                <button className="pure-button-primary" onClick={changeDone} css={customButton}>Done</button>
             </div>
         </>);
     }
@@ -30,7 +42,7 @@ export function TodoList({todoItems}){
     return(<><ul>
             {todoItems.map(todoItem => (
                 <li css={li}>
-                    <TodoItem content={todoItem.content}></TodoItem>
+                    <TodoItem todo={todoItem}></TodoItem>
                 </li>
             ))}
         </ul></>);
