@@ -17,7 +17,6 @@ export default function TodoItem({todo}){
         console.log(todo.done);
         const updatedTodo = await updateDone(token, todo);
         setDone(!done);
-
     }
 
     let url = '/todo/' + todo._id;
@@ -70,6 +69,30 @@ export function TodoBuilder({onAdd}){
                 </label>
                 <button type="submit" className="pure-button-primary" css={customButton}>Add</button>
             </form>
+        </div>
+    </>);
+}
+
+export function TodoId({todo}){
+    const [newTodoContent, setNewTodoContent] = useState(todo.content);
+    const { isLoaded, userId, sessionId, getToken } = useAuth();
+
+    async function update(){
+        const token = await getToken({ template: "codehooks" });
+        todo.content = newTodoContent;
+        await updateDone(token, todo);
+    }
+
+    async function changeDone(){
+        const token = await getToken({ template: "codehooks" });
+        todo.done = !todo.done;
+        const updatedTodo = await updateDone(token, todo);
+    }
+    return(<>
+        <div css={todoItem}>
+            <input value={newTodoContent} onChange={(e) => setNewTodoContent(e.target.value)}></input>
+            <button className="pure-button-primary" onClick={update} css={customButton}>Save</button>
+            <button className="pure-button-primary" onClick={changeDone} css={customButton}>Done</button>
         </div>
     </>);
 }

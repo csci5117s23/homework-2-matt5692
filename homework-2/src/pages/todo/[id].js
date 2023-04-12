@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Head from 'next/head'
 import { header } from "@/styles/styles";
 import { useAuth } from "@clerk/nextjs";
-import TodoItem from "@/components/todo";
+import { TodoId } from "@/components/todo";
 import { getTodoById } from "@/modules/Data";
 
 export default function Id(){
@@ -38,7 +38,7 @@ export default function Id(){
           </Head>
           <div className="pure-g">
                 <div className="pure-u-1" css={header}>
-                    <TodoItem todo={todoItem}></TodoItem>
+                    <TodoId todo={todoItem}></TodoId>
                 </div>
             </div>
         </>
