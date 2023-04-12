@@ -1,21 +1,40 @@
 /** @jsxImportSource @emotion/react */
 import { header } from "@/styles/styles";
-import { useState } from "react";
-import TodoItem from "@/components/todo";
+import { useState, useEffect } from "react";
 import { TodoList } from "@/components/todo";
 import { TodoBuilder } from "@/components/todo";
 import Head from 'next/head'
+import { useAuth } from "@clerk/nextjs";
+import { getTodo, addTodo } from "@/modules/Data";
+import { todoItem, customButton } from "@/styles/styles";
 
 export default function Todo(){
-    let ITEMS = [{content: "complete an item"}, {content: "finish the frontend"}, {content: "finish the backend"}]
-    const [todoItemList, setTodoItemList] = useState(ITEMS);
+    const [todoItemList, setTodoItemList] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [newItemContent, setNewItemContent] = useState("");
+    const { isLoaded, userId, sessionId, getToken } = useAuth();
 
-    function handleAdd(content){
-        let newList = todoItemList.slice();
-        newList.push({content: content});
-        setTodoItemList(newList);
+    useEffect(() => {
+        async function process() {
+          if (userId) {
+            const token = await getToken({ template: "codehooks" });
+            setTodoItemList(await getTodo(token));
+            setLoading(false);
+          }
+        }
+        process();
+      }, [isLoaded]);
+
+    async function add() {
+        const token = await getToken({ template: "codehooks" });
+        const newTodo = await addTodo(token, newItemContent);
+        setNewItemContent("");
+        setTodoItemList(todoItemList.concat(newTodo));
     }
 
+    if(loading){
+        return(<><span>LOADING</span></>);
+    } else{
     return (
         <>
           <Head>
@@ -28,9 +47,13 @@ export default function Todo(){
                 <div className="pure-u-1" css={header}>
                     <h2>Your todo list</h2>
                     <TodoList todoItems={todoItemList}></TodoList>
-                    <TodoBuilder onAdd={(content) => handleAdd(content)}></TodoBuilder>
+                    <div css={todoItem}>
+                        <input name="content" id="contentInput" value={newItemContent} onChange={(e) => setNewItemContent(e.target.value)}></input>
+                        <button onClick={add} className="pure-button-primary" css={customButton}>Add</button>
+                    </div>
                 </div>
             </div>
         </>
       )
+    }
 }
