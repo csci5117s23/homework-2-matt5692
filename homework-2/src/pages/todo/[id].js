@@ -25,6 +25,10 @@ export default function Id(){
         process();
       }, [isLoaded]);
 
+    if(todoItem == 403){
+        return(<><span>YOU DO NOT OWN THIS TODO ITEM</span></>)
+    }
+
     if(loading){
         return(<><span>LOADING</span></>);
     } else{
