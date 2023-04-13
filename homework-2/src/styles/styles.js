@@ -42,6 +42,11 @@ export const todoItem = css`
     border-style: solid;
     font-size: 1.5em;
     background-color: ${palepink};
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
 `
 
 export const customButton = css `
@@ -50,6 +55,8 @@ export const customButton = css `
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     background-color: ${darkblue};
+    margin-top:10px;
+    margin-bottom:10px;
 `
 
 export const li = css`
