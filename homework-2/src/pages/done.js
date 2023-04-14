@@ -22,7 +22,7 @@ export default function Done(){
           }
         }
         process();
-      }, [isLoaded, todoItemList]);
+      }, [isLoaded]);
 
 
     if(loading){

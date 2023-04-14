@@ -25,7 +25,7 @@ export default function Todo(){
           }
         }
         process();
-      }, [isLoaded, todoItemList]);
+      }, [isLoaded]);
 
     async function add() {
         const token = await getToken({ template: "codehooks" });
