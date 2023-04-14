@@ -24,13 +24,12 @@ export default function Todo(){
           }
         }
         process();
-      }, [isLoaded]);
+      }, [isLoaded, todoItemList]);
 
     async function add() {
         const token = await getToken({ template: "codehooks" });
         const newTodo = await addTodo(token, newItemContent);
         setNewItemContent("");
-        setTodoItemList(todoItemList.concat(newTodo));
     }
 
     if(loading){
