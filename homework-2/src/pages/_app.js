@@ -2,10 +2,15 @@
 import 'purecss/build/pure.css'
 import { navbar } from '@/styles/styles'
 import Link from 'next/link';
-import { ClerkProvider } from '@clerk/nextjs';
+import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn, UserButton } from '@clerk/nextjs';
+import { useRouter } from 'next/router';
 
+//public page example from clerk docs https://clerk.com/docs/nextjs/pages-react
+const publicPages = ["/", "/404"];
 
 export default function App({ Component, pageProps }) {
+  const { pathname } = useRouter();
+  const isPublicPage = publicPages.includes(pathname);
   return(<>
   <ClerkProvider {...pageProps} >
   <div className="home-menu pure-menu pure-menu-horizontal" css={navbar}>
@@ -19,7 +24,19 @@ export default function App({ Component, pageProps }) {
             </li>
       </ul>
   </div>
-  <Component {...pageProps} />
+  {isPublicPage ? (
+    <Component {...pageProps} />
+  ) : (
+    <>
+    <SignedIn>
+        <UserButton />
+        <Component {...pageProps} />
+    </SignedIn>
+    <SignedOut>
+        <RedirectToSignIn />
+    </SignedOut>
+    </>
+  )}
   </ClerkProvider>
   </>); 
 }

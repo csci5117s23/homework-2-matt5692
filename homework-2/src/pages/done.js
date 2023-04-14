@@ -40,7 +40,7 @@ export default function Done(){
                     <h2>Your done items</h2>
                     <TodoList todoItems={todoItemList}></TodoList>
                 </div>
-            </div>
+          </div>
         </>
       )
     }
