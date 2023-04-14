@@ -57,10 +57,16 @@ export const customButton = css `
     background-color: ${darkblue};
     margin-top:10px;
     margin-bottom:10px;
+    color: white;
 `
 
 export const li = css`
     list-style-type: none;
     margin-bottom: 10px;
     margin-top: 10px;
+`
+
+export const userButton = css`
+    margin-left: 20px;
+    margin-right: 10px;
 `

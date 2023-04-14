@@ -19,7 +19,8 @@ export default function Todo(){
           if (userId) {
             const token = await getToken({ template: "codehooks" });
             const todoList = await getTodo(token);
-            setTodoItemList(todoList.filter(todoItem => !todoItem.done));
+            //sort based on slack discussion by Anwaar Hadi
+            setTodoItemList(todoList.sort((a, b) => (a.createdOn <= b.createdOn) ? 1 : -1).filter(todoItem => !todoItem.done)); 
             setLoading(false);
           }
         }

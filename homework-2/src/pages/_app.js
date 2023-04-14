@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import 'purecss/build/pure.css'
-import { navbar } from '@/styles/styles'
+import { navbar, userButton } from '@/styles/styles'
 import Link from 'next/link';
 import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn, UserButton } from '@clerk/nextjs';
 import { useRouter } from 'next/router';
@@ -19,9 +19,11 @@ export default function App({ Component, pageProps }) {
             <li className="pure-menu-item">
                 <Link href="/done" className="pure-menu-link">Done</Link>
             </li>
-            <li className="pure-menu-item">
-                <Link href="/" className="pure-menu-link">home</Link>
-            </li>
+            <SignedIn>
+              <li className="pure-menu-item">
+                <UserButton css={userButton}/>
+              </li>
+            </SignedIn>
       </ul>
   </div>
   {isPublicPage ? (

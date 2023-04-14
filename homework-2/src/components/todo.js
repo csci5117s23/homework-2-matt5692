@@ -3,23 +3,21 @@ import { useState } from "react";
 import { todoItem } from "@/styles/styles";
 import { customButton } from "@/styles/styles";
 import { li } from "@/styles/styles";
-import { updateDone } from "@/modules/Data";
+import { updateTodo } from "@/modules/Data";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 
 export default function TodoItem({todo}){
-    const [done, setDone] = useState(todo.done);
-    const { isLoaded, userId, sessionId, getToken } = useAuth();
+    const { getToken } = useAuth();
 
     async function changeDone(){
         const token = await getToken({ template: "codehooks" });
         todo.done = !todo.done;
-        const updatedTodo = await updateDone(token, todo);
-        setDone(!done);
+        const updatedTodo = await updateTodo(token, todo);
     }
 
-    let url = '/todo/' + todo._id;
-    if(!done){
+    const url = '/todo/' + todo._id;
+    if(!todo.done){
         return(<>
             <div css={todoItem}>
                 <Link href={url}>{todo.content}</Link>
@@ -79,13 +77,13 @@ export function TodoId({todo}){
     async function update(){
         const token = await getToken({ template: "codehooks" });
         todo.content = newTodoContent;
-        await updateDone(token, todo);
+        await updateTodo(token, todo);
     }
 
     async function changeDone(){
         const token = await getToken({ template: "codehooks" });
         todo.done = !todo.done;
-        const updatedTodo = await updateDone(token, todo);
+        const updatedTodo = await updateTodo(token, todo);
     }
     return(<>
         <div css={todoItem}>
