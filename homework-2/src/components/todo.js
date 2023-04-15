@@ -46,30 +46,6 @@ export function TodoList({todoItems}){
         </ul></>);
 }
 
-export function TodoBuilder({onAdd}){
-    function handleSubmit(e){
-        e.preventDefault();
-
-        const content = document.querySelector("#contentInput");
-        
-
-        onAdd(content.value);
-
-        content.value = "";
-    }
-
-    return(<>
-        <div css={todoItem}>
-            <form className="pure-form" onSubmit={handleSubmit}>
-                <label>
-                    <input name="content" id="contentInput"></input>
-                </label>
-                <button type="submit" className="pure-button-primary" css={customButton}>Add</button>
-            </form>
-        </div>
-    </>);
-}
-
 export function TodoId({todo}){
     const [done, setDone] = useState(todo.done);
     const [newTodoContent, setNewTodoContent] = useState(todo.content);

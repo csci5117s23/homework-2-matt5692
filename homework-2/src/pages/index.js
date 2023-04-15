@@ -2,16 +2,16 @@
 import { header } from "@/styles/styles";
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import {SignedIn, SignedOut, SignInButton, UserButton, useAuth} from "@clerk/nextjs";
+import { SignedOut, SignInButton, useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { customButton } from "@/styles/styles";
-import { Router } from "next/router";
+
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const { isSignedIn, userId } = useAuth();
+  const { userId } = useAuth();
   const router = useRouter();
 
   //if user visits index page while already logged in, redirect to todo
@@ -34,7 +34,7 @@ export default function Home() {
       </Head>
       <div className="pure-g">
             <div className="pure-u-1" css={header}>
-                <h1>Welcome!</h1>
+                <h1>My todo app</h1>
                 <SignedOut>
                   <SignInButton className="pure-button-primary" css={customButton} redirectUrl="/todo"/>
                 </SignedOut>
