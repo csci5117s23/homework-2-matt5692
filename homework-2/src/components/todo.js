@@ -8,16 +8,18 @@ import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 
 export default function TodoItem({todo}){
+    const [done, setDone] = useState(todo.done);
     const { getToken } = useAuth();
 
     async function changeDone(){
         const token = await getToken({ template: "codehooks" });
         todo.done = !todo.done;
         const updatedTodo = await updateTodo(token, todo);
+        setDone(!done);
     }
 
     const url = '/todo/' + todo._id;
-    if(!todo.done){
+    if(!done){
         return(<>
             <div css={todoItem}>
                 <Link href={url}>{todo.content}</Link>

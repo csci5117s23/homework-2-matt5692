@@ -2,7 +2,6 @@
 import { header } from "@/styles/styles";
 import { useState, useEffect } from "react";
 import { TodoList } from "@/components/todo";
-import { TodoBuilder } from "@/components/todo";
 import Head from 'next/head'
 import { useAuth } from "@clerk/nextjs";
 import { getTodo, addTodo } from "@/modules/Data";
@@ -30,9 +29,11 @@ export default function Todo(){
     async function add() {
         const token = await getToken({ template: "codehooks" });
         const newTodo = await addTodo(token, newItemContent);
+        let newList = [newTodo];
+        setTodoItemList(newList.concat(todoItemList));
         setNewItemContent("");
     }
-
+ 
     if(loading){
         return(<><span>LOADING</span></>);
     } else{

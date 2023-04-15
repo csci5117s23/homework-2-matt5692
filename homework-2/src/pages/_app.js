@@ -31,7 +31,6 @@ export default function App({ Component, pageProps }) {
   ) : (
     <>
     <SignedIn>
-        <UserButton />
         <Component {...pageProps} />
     </SignedIn>
     <SignedOut>
