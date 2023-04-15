@@ -49,6 +49,23 @@ export const todoItem = css`
     }
 `
 
+export const todoItemDone = css`
+    text-align: center;
+    border-radius: 8px;
+    border-style: solid;
+    font-size: 1.5em;
+    background-color: grey;
+
+    a {
+        text-decoration: line-through;
+        color: black;
+    }
+
+    input {
+        text-decoration: line-through;
+    }
+`
+
 export const customButton = css `
     margin-left: 10px;
     margin-right: 10px;
