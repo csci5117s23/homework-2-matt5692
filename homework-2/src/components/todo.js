@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from "react";
 import { todoItem, todoItemDone, customButton, li } from "@/styles/styles";
-import { updateTodo } from "@/modules/Data";
+import { updateTodo, getTodo } from "@/modules/Data";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 
-export default function TodoItem({todo}){
+export default function TodoItem({todo, updateList}){
     const [done, setDone] = useState(todo.done);
     const { getToken } = useAuth();
 
@@ -14,10 +14,14 @@ export default function TodoItem({todo}){
         todo.done = !todo.done;
         const updatedTodo = await updateTodo(token, todo);
         setDone(!done);
+
+        //update list in todo or done
+        const newList = await getTodo(token);
+        updateList(newList);
     }
 
     const url = '/todo/' + todo._id;
-    if(!done){
+    if(!todo.done){
         return(<>
             <div css={todoItem}>
                 <Link href={url}>{todo.content}</Link>
@@ -36,11 +40,11 @@ export default function TodoItem({todo}){
 }
 
 // map example from https://www.telerik.com/blogs/beginners-guide-loops-in-react-jsx
-export function TodoList({todoItems}){
+export function TodoList({todoItems, updateList}){
     return(<><ul>
             {todoItems.map(todoItem => (
                 <li css={li}>
-                    <TodoItem todo={todoItem}></TodoItem>
+                    <TodoItem todo={todoItem} updateList={updateList}></TodoItem>
                 </li>
             ))}
         </ul></>);

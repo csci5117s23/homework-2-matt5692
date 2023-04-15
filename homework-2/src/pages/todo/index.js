@@ -33,6 +33,11 @@ export default function Todo(){
         setTodoItemList(newList.concat(todoItemList));
         setNewItemContent("");
     }
+
+    function update(newList){
+      //sort based on slack discussion by Anwaar Hadi
+      setTodoItemList(newList.sort((a, b) => (a.createdOn <= b.createdOn) ? 1 : -1).filter(todoItem => !todoItem.done));
+    }
  
     if(loading){
         return(<><span>LOADING</span></>);
@@ -48,7 +53,7 @@ export default function Todo(){
           <div className="pure-g">
                 <div className="pure-u-1" css={header}>
                     <h2>Your todo list</h2>
-                    <TodoList todoItems={todoItemList}></TodoList>
+                    <TodoList todoItems={todoItemList} updateList={update}></TodoList>
                     <div css={todoItem}>
                         <input name="content" id="contentInput" value={newItemContent} onChange={(e) => setNewItemContent(e.target.value)}></input>
                         <button onClick={add} className="pure-button-primary" css={customButton}>Add</button>

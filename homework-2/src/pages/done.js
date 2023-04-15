@@ -24,6 +24,10 @@ export default function Done(){
         process();
       }, [isLoaded]);
 
+    function update(newList){
+      //sort based on slack discussion by Anwaar Hadi
+      setTodoItemList(newList.sort((a, b) => (a.createdOn <= b.createdOn) ? 1 : -1).filter(todoItem => todoItem.done));
+    }
 
     if(loading){
         return(<><span>LOADING</span></>);
@@ -39,7 +43,7 @@ export default function Done(){
           <div className="pure-g">
                 <div className="pure-u-1" css={header}>
                     <h2>Your done items</h2>
-                    <TodoList todoItems={todoItemList}></TodoList>
+                    <TodoList todoItems={todoItemList} updateList={update}></TodoList>
                 </div>
           </div>
         </>
