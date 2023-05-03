@@ -43,7 +43,7 @@ export default function TodoItem({todo, updateList}){
 export function TodoList({todoItems, updateList}){
     return(<><ul>
             {todoItems.map(todoItem => (
-                <li css={li}>
+                <li css={li} key={todoItem._id}>
                     <TodoItem todo={todoItem} updateList={updateList}></TodoItem>
                 </li>
             ))}
